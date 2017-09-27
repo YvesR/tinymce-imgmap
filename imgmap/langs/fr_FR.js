@@ -1,6 +1,6 @@
 // FR lang variables
 
-tinymce.addI18n('fr' { 'imgmap': {
+tinymce.addI18n('fr_FR', { 'imgmap': {
   "title" : 'Image Map Editor',
   "desc" : 'Image Map Editor',
   "btnUpdate" : 'Mettre à jour',

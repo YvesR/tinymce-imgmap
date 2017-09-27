@@ -1,6 +1,6 @@
 // UK lang variables
 
-tinymce.addI18n('en' { 'imgmap': {
+tinymce.addI18n('en_US', { 'imgmap': {
   "title" : 'Image Map Editor',
   "desc" : 'Image Map Editor',
   "btnUpdate" : 'Update',
