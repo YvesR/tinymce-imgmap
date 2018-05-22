@@ -16,7 +16,7 @@ var props = [];
  */
 function open_infobase_select(id) {
   try {
-    var win = window.open(settings.dialog_url + '/inc/editor/infobase_imgmap.asp?id=' + id, 'oWindow', 'scrollbars=yes,resizable=yes,width=900,height=600');
+    var win = window.open(tinymce.settings.imgmap_settings.dialogBaseUrl + '/inc/editor/infobase_imgmap.asp?id=' + id, 'oWindow', 'scrollbars=yes,resizable=yes,width=1200,height=650');
     win.focus();
   } catch(e) {
     alert(e);
@@ -363,20 +363,20 @@ function gui_addArea(id, customDialog) {
   var temp = '<input type="text"  name="img_id" class="img_id" value="' + id + '" readonly="1"/> ';
   temp += '<input type="radio" name="img_active" class="img_active" id="img_active_'+id+'" value="'+id+'">';
   temp += ' <select name="img_shape" class="img_shape">';
-  temp += '   <option value="rect" >' + plugin_translate('imgmap.FRM_CONTAINER_TYP_RECT') + '</option>';
-  temp += '   <option value="circle" >' + plugin_translate('imgmap.FRM_CONTAINER_TYP_CIRC') + '</option>';
-  temp += '   <option value="poly" >' + plugin_translate('imgmap.FRM_CONTAINER_TYP_POLY') + '</option>';
+  temp += '   <option value="rect" >' + tinymce.translate('imgmap.FRM_CONTAINER_TYP_RECT') + '</option>';
+  temp += '   <option value="circle" >' + tinymce.translate('imgmap.FRM_CONTAINER_TYP_CIRC') + '</option>';
+  temp += '   <option value="poly" >' + tinymce.translate('imgmap.FRM_CONTAINER_TYP_POLY') + '</option>';
   temp += ' </select>';
-  temp += ' ' + plugin_translate('imgmap.FRM_CONTAINER_COORD') + ': <input type="text" name="img_coords" class="img_coords" value="">';
-  temp += ' ' + plugin_translate('imgmap.FRM_CONTAINER_HREF') + ': <input type="text" name="img_href" class="img_href" value="">';
+  temp += ' ' + tinymce.translate('imgmap.FRM_CONTAINER_COORD') + ': <input type="text" name="img_coords" class="img_coords" value="">';
+  temp += ' ' + tinymce.translate('imgmap.FRM_CONTAINER_HREF') + ': <input type="text" name="img_href" class="img_href" value="">';
   // add legacy Informer dialog
   if (settings.dialogBaseUrl.length>0)
-    temp += '&nbsp;<span onclick="open_infobase_select(' + id + ');" title="' + plugin_translate('imgmap.FRM_CONTAINER_INFOBASE') + '" class="icon-link pointer"></span>';
+    temp += '&nbsp;<span onclick="open_infobase_select(' + id + ');" title="' + tinymce.translate('imgmap.FRM_CONTAINER_INFOBASE') + '" class="icon-link pointer"></span>';
   temp += '<input type="hidden" name="img_alt" class="img_alt" value="">';
-  temp += ' ' + plugin_translate('imgmap.FRM_CONTAINER_TARGET') + ': <select name="img_target" class="img_target">';
-  temp += '<option value="_self"  >' + plugin_translate('imgmap.FRM_CONTAINER_TRGT_THIS') + '</option>';
-  temp += '<option value="_blank" >' + plugin_translate('imgmap.FRM_CONTAINER_TRGT_NEW') + '</option>';
-  temp += '<option value="_top"   >' + plugin_translate('imgmap.FRM_CONTAINER_TRGT_TOP') + '</option>';
+  temp += ' ' + tinymce.translate('imgmap.FRM_CONTAINER_TARGET') + ': <select name="img_target" class="img_target">';
+  temp += '<option value="_self"  >' + tinymce.translate('imgmap.FRM_CONTAINER_TRGT_THIS') + '</option>';
+  temp += '<option value="_blank" >' + tinymce.translate('imgmap.FRM_CONTAINER_TRGT_NEW') + '</option>';
+  temp += '<option value="_top"   >' + tinymce.translate('imgmap.FRM_CONTAINER_TRGT_TOP') + '</option>';
   temp += '</select>';
   props[id].innerHTML = temp;
   //hook more event handlers to individual inputs
@@ -578,12 +578,6 @@ function gui_zoom() {
   myimgmap.scaleAllAreas(scale);
 }
 
-plugin_translate = function(val) {
-  return (eval('tinymce.i18n.data.' + tinymce.settings.language + '.' + val) != undefined)
-      ? eval('tinymce.i18n.data.' + tinymce.settings.language + '.' + val)
-      : val;
-}
-
 global_translate = function() {
   var c = document.body.innerHTML;
   var d = document.title;
@@ -594,13 +588,13 @@ global_translate = function() {
   // body translations
   a = c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
     //var c=tinymce.translate(b); 
-    var c = plugin_translate(b);
+    var c = tinymce.translate(b);
     return (c != b) ? c : '{#' + b + '}';
   });
   if(a != c) { document.body.innerHTML = a }
   // document title translation
   a = d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-    var c = plugin_translate(b);
+    var c = tinymce.translate(b);
     return (c != b) ? c : '{#' + b + '}';
   });
   if(a != d) { document.title=d=a }

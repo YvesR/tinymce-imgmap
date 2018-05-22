@@ -452,7 +452,7 @@ imgmap.prototype.onLoad = function(e) {
         return false;
       }
       */
-      this.log(plugin_translate('imgmap.ERR_EXCANVAS_LOAD'), 2);//critical error
+      this.log(tinymce.translate('imgmap.ERR_EXCANVAS_LOAD'), 2);//critical error
     }
   }
   
@@ -1166,7 +1166,7 @@ imgmap.prototype.togglePreview = function() {
     this.pic.setAttribute('usemap', '#' + this.mapname, 0);
     this.pic.style.cursor  = 'auto';
     this.viewmode = 1;
-    this.statusMessage(plugin_translate('imgmap.PREVIEW_MODE'));
+    this.statusMessage(tinymce.translate('imgmap.PREVIEW_MODE'));
   }
   else {
     //show canvas elements
@@ -1181,7 +1181,7 @@ imgmap.prototype.togglePreview = function() {
     this.pic.style.cursor  = this.config.cursor_default;
     this.pic.removeAttribute('usemap', 0);
     this.viewmode = 0;
-    this.statusMessage(plugin_translate('imgmap.DESIGN_MODE'));
+    this.statusMessage(tinymce.translate('imgmap.DESIGN_MODE'));
     this.is_drawing = 0;
   }
   this.fireEvent('onModeChanged', this.viewmode);
@@ -1794,7 +1794,7 @@ imgmap.prototype._recalculate = function(id, coords) {
   catch (err) {
     var msg = (err.message) ? err.message : 'error calculating coordinates';
     this.log(msg, 1);
-    this.statusMessage(plugin_translate('imgmap.ERR_INVALID_COORDS'));
+    this.statusMessage(tinymce.translate('imgmap.ERR_INVALID_COORDS'));
     if (this.areas[id].lastInput) {
       this.fireEvent('onAreaChanged', this.areas[id]);
     }
@@ -1903,14 +1903,14 @@ imgmap.prototype.img_mousemove = function(e) {
     if (e.shiftKey) {
       if (this.is_drawing == this.DM_RECTANGLE_DRAW) {
         this.is_drawing = this.DM_SQUARE_DRAW;
-        this.statusMessage(plugin_translate('imgmap.SQUARE2_DRAW'));
+        this.statusMessage(tinymce.translate('imgmap.SQUARE2_DRAW'));
       }
     }
     else {
       if (this.is_drawing == this.DM_SQUARE_DRAW && this.areas[this.currentid].shape == 'rect') {
         //not for circle!
         this.is_drawing = this.DM_RECTANGLE_DRAW;
-        this.statusMessage(plugin_translate('imgmap.RECTANGLE_DRAW'));
+        this.statusMessage(tinymce.translate('imgmap.RECTANGLE_DRAW'));
       }
     }
   }
@@ -2146,7 +2146,7 @@ imgmap.prototype.img_mouseup = function(e) {
     this.draggedId = null;
     //finish state
     this.is_drawing = 0;
-    this.statusMessage(plugin_translate('imgmap.READY'));
+    this.statusMessage(tinymce.translate('imgmap.READY'));
     this.relaxArea(this.currentid);
     if (this.areas[this.currentid] == this._getLastArea()) {
       //if (this.config.mode != "editor2") this.addNewArea();
@@ -2208,7 +2208,7 @@ imgmap.prototype.img_mousedown = function(e) {
       this._polygonshrink(this.areas[this.currentid]);
     }
     this.is_drawing = 0;
-    this.statusMessage(plugin_translate('imgmap.READY'));
+    this.statusMessage(tinymce.translate('imgmap.READY'));
     this.relaxArea(this.currentid);
     if (this.areas[this.currentid] == this._getLastArea()) {
       //editor mode adds next area automatically
@@ -2233,7 +2233,7 @@ imgmap.prototype.img_mousedown = function(e) {
   }
   if (this.areas[this.currentid].shape == 'poly') {
     this.is_drawing = this.DM_POLYGON_DRAW;
-    this.statusMessage(plugin_translate('imgmap.POLYGON_DRAW'));
+    this.statusMessage(tinymce.translate('imgmap.POLYGON_DRAW'));
     
     this.areas[this.currentid].style.left = x + 'px';
     this.areas[this.currentid].style.top  = y + 'px';
@@ -2246,7 +2246,7 @@ imgmap.prototype.img_mousedown = function(e) {
   }
   else if (this.areas[this.currentid].shape == 'bezier1') {
     this.is_drawing = this.DM_BEZIER_DRAW;
-    this.statusMessage(plugin_translate('imgmap.BEZIER_DRAW'));
+    this.statusMessage(tinymce.translate('imgmap.BEZIER_DRAW'));
     
     this.areas[this.currentid].style.left = x + 'px';
     this.areas[this.currentid].style.top  = y + 'px';
@@ -2259,7 +2259,7 @@ imgmap.prototype.img_mousedown = function(e) {
   }
   else if (this.areas[this.currentid].shape == 'rect') {
     this.is_drawing = this.DM_RECTANGLE_DRAW;
-    this.statusMessage(plugin_translate('imgmap.RECTANGLE_DRAW'));
+    this.statusMessage(tinymce.translate('imgmap.RECTANGLE_DRAW'));
     
     this.areas[this.currentid].style.left = x + 'px';
     this.areas[this.currentid].style.top  = y + 'px';
@@ -2268,7 +2268,7 @@ imgmap.prototype.img_mousedown = function(e) {
   }
   else if (this.areas[this.currentid].shape == 'circle') {
     this.is_drawing = this.DM_SQUARE_DRAW;
-    this.statusMessage(plugin_translate('imgmap.SQUARE_DRAW'));
+    this.statusMessage(tinymce.translate('imgmap.SQUARE_DRAW'));
         
     this.areas[this.currentid].style.left = x + 'px';
     this.areas[this.currentid].style.top  = y + 'px';
@@ -2392,57 +2392,57 @@ imgmap.prototype.area_mousemove = function(e) {
       //move left
       if (this.areas[this.currentid].shape == 'circle') {
         this.is_drawing = this.DM_SQUARE_RESIZE_LEFT;
-        this.statusMessage(plugin_translate('imgmap.SQUARE_RESIZE_LEFT'));
+        this.statusMessage(tinymce.translate('imgmap.SQUARE_RESIZE_LEFT'));
       }
       else if (this.areas[this.currentid].shape == 'rect') {
         this.is_drawing = this.DM_RECTANGLE_RESIZE_LEFT;
-        this.statusMessage(plugin_translate('imgmap.RECTANGLE_RESIZE_LEFT'));
+        this.statusMessage(tinymce.translate('imgmap.RECTANGLE_RESIZE_LEFT'));
       }
     }
     else if (xdiff > parseInt(this.areas[this.currentid].style.width, 10) - 6  && ydiff > 6) {
       //move right
       if (this.areas[this.currentid].shape == 'circle') {
         this.is_drawing = this.DM_SQUARE_RESIZE_RIGHT;
-        this.statusMessage(plugin_translate('imgmap.SQUARE_RESIZE_RIGHT'));
+        this.statusMessage(tinymce.translate('imgmap.SQUARE_RESIZE_RIGHT'));
       }
       else if (this.areas[this.currentid].shape == 'rect') {
         this.is_drawing = this.DM_RECTANGLE_RESIZE_RIGHT;
-        this.statusMessage(plugin_translate('imgmap.RECTANGLE_RESIZE_RIGHT'));
+        this.statusMessage(tinymce.translate('imgmap.RECTANGLE_RESIZE_RIGHT'));
       }
     }
     else if (xdiff > 6 && ydiff < 6) {
       //move top
       if (this.areas[this.currentid].shape == 'circle') {
         this.is_drawing = this.DM_SQUARE_RESIZE_TOP;
-        this.statusMessage(plugin_translate('imgmap.SQUARE_RESIZE_TOP'));
+        this.statusMessage(tinymce.translate('imgmap.SQUARE_RESIZE_TOP'));
       }
       else if (this.areas[this.currentid].shape == 'rect') {
         this.is_drawing = this.DM_RECTANGLE_RESIZE_TOP;
-        this.statusMessage(plugin_translate('imgmap.RECTANGLE_RESIZE_TOP'));
+        this.statusMessage(tinymce.translate('imgmap.RECTANGLE_RESIZE_TOP'));
       }
     }
     else if (ydiff > parseInt(this.areas[this.currentid].style.height, 10) - 6  && xdiff > 6) {
       //move bottom
       if (this.areas[this.currentid].shape == 'circle') {
         this.is_drawing = this.DM_SQUARE_RESIZE_BOTTOM;
-        this.statusMessage(plugin_translate('imgmap.SQUARE_RESIZE_BOTTOM'));
+        this.statusMessage(tinymce.translate('imgmap.SQUARE_RESIZE_BOTTOM'));
       }
       else if (this.areas[this.currentid].shape == 'rect') {
         this.is_drawing = this.DM_RECTANGLE_RESIZE_BOTTOM;
-        this.statusMessage(plugin_translate('imgmap.RECTANGLE_RESIZE_BOTTOM'));
+        this.statusMessage(tinymce.translate('imgmap.RECTANGLE_RESIZE_BOTTOM'));
       }
     }
     else/*if (xdiff < 10 && ydiff < 10 ) */{
       //move all
       if (this.areas[this.currentid].shape == 'circle') {
         this.is_drawing = this.DM_SQUARE_MOVE;
-        this.statusMessage(plugin_translate('imgmap.SQUARE_MOVE'));
+        this.statusMessage(tinymce.translate('imgmap.SQUARE_MOVE'));
         this.memory[this.currentid].rdownx = xdiff;
         this.memory[this.currentid].rdowny = ydiff;
       }
       else if (this.areas[this.currentid].shape == 'rect') {
         this.is_drawing = this.DM_RECTANGLE_MOVE;
-        this.statusMessage(plugin_translate('imgmap.RECTANGLE_MOVE'));
+        this.statusMessage(tinymce.translate('imgmap.RECTANGLE_MOVE'));
         this.memory[this.currentid].rdownx = xdiff;
         this.memory[this.currentid].rdowny = ydiff;
       }
@@ -2456,11 +2456,11 @@ imgmap.prototype.area_mousemove = function(e) {
         
         if (this.areas[this.currentid].shape == 'poly') {
           this.is_drawing = this.DM_POLYGON_MOVE;
-          this.statusMessage(plugin_translate('imgmap.POLYGON_MOVE'));
+          this.statusMessage(tinymce.translate('imgmap.POLYGON_MOVE'));
         }
         else if (this.areas[this.currentid].shape == 'bezier1') {
           this.is_drawing = this.DM_BEZIER_MOVE;
-          this.statusMessage(plugin_translate('imgmap.BEZIER_MOVE'));
+          this.statusMessage(tinymce.translate('imgmap.BEZIER_MOVE'));
         }
         
         this.memory[this.currentid].rdownx = xdiff;
@@ -2694,7 +2694,7 @@ imgmap.prototype.doc_keydown = function(e) {
     //shift key pressed
     if (this.is_drawing == this.DM_RECTANGLE_DRAW) {
       this.is_drawing = this.DM_SQUARE_DRAW;
-      this.statusMessage(plugin_translate('imgmap.SQUARE2_DRAW'));
+      this.statusMessage(tinymce.translate('imgmap.SQUARE2_DRAW'));
     }
   }
 };
@@ -2713,7 +2713,7 @@ imgmap.prototype.doc_keyup = function(e) {
     if (this.is_drawing == this.DM_SQUARE_DRAW && this.areas[this.currentid].shape == 'rect') {
       //not for circle!
       this.is_drawing = this.DM_RECTANGLE_DRAW;
-      this.statusMessage(plugin_translate('imgmap.RECTANGLE_DRAW'));
+      this.statusMessage(tinymce.translate('imgmap.RECTANGLE_DRAW'));
     }
   }
 };
